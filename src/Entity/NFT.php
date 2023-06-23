@@ -40,10 +40,14 @@ class NFT
     #[ORM\OneToMany(mappedBy: 'nft', targetEntity: PriceInfos::class)]
     private Collection $priceInfos;
 
+    #[ORM\ManyToMany(targetEntity: Category::class, mappedBy: 'NFT')]
+    private Collection $categories;
+
     public function __construct()
     {
         $this->purchases = new ArrayCollection();
         $this->priceInfos = new ArrayCollection();
+        $this->categories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -178,6 +182,33 @@ class NFT
             if ($priceInfo->getNft() === $this) {
                 $priceInfo->setNft(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Category>
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Category $category): static
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories->add($category);
+            $category->addNFT($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): static
+    {
+        if ($this->categories->removeElement($category)) {
+            $category->removeNFT($this);
         }
 
         return $this;
