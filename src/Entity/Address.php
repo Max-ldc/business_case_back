@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\AdressRepository;
+use App\Repository\AddressRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: AdressRepository::class)]
-class Adress
+#[ORM\Entity(repositoryClass: AddressRepository::class)]
+class Address
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -22,7 +22,7 @@ class Adress
     #[ORM\Column(length: 255)]
     private ?string $city = null;
 
-    #[ORM\OneToOne(mappedBy: 'adress', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(mappedBy: 'address', cascade: ['persist', 'remove'])]
     private ?User $user = null;
 
     public function getId(): ?int
@@ -75,12 +75,12 @@ class Adress
     {
         // unset the owning side of the relation if necessary
         if ($user === null && $this->user !== null) {
-            $this->user->setAdress(null);
+            $this->user->setAddress(null);
         }
 
         // set the owning side of the relation if necessary
-        if ($user !== null && $user->getAdress() !== $this) {
-            $user->setAdress($this);
+        if ($user !== null && $user->getAddress() !== $this) {
+            $user->setAddress($this);
         }
 
         $this->user = $user;

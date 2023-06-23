@@ -2,7 +2,7 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Adress;
+use App\Entity\Address;
 use App\Entity\Category;
 use App\Entity\NFT;
 use App\Entity\NFTPurchase;
@@ -18,11 +18,11 @@ class AppFixtures extends Fixture
     {
         $faker = \Faker\Factory::create();
 
-        $adress = new Adress();
-        $adress->setRoad("1 rue des Tilleuls")
-            ->setPostalCode("69007")
+        $address = new Address();
+        $address->setRoad("1 rue des Tilleuls")
+            ->setZipCode("69007")
             ->setCity("Lyon");
-        $manager->persist($adress);
+        $manager->persist($address);
 
         $client = new User();
         $client->setUsername("Max")
@@ -33,7 +33,7 @@ class AppFixtures extends Fixture
             ->setFirstname("Maxence")
             ->setLastname("Leduc")
             ->setBirthDate(new DateTime("01/31/1997"))
-            ->setAdress($adress);
+            ->setAddress($address);
         $manager->persist($client);
 
         $category = new Category();

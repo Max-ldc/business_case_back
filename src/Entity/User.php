@@ -46,7 +46,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?\DateTimeInterface $birthDate = null;
 
     #[ORM\OneToOne(inversedBy: 'user', cascade: ['persist', 'remove'])]
-    private ?Adress $adress = null;
+    private ?Address $address = null;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: NFTPurchase::class)]
     private Collection $purchases;
@@ -200,14 +200,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getAdress(): ?Adress
+    public function getAddress(): ?Address
     {
-        return $this->adress;
+        return $this->address;
     }
 
-    public function setAdress(?Adress $adress): static
+    public function setAddress(?Address $address): static
     {
-        $this->adress = $adress;
+        $this->address = $address;
 
         return $this;
     }
